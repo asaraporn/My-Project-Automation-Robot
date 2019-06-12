@@ -1,0 +1,37 @@
+*** Settings ***
+###TODO : FaceBook Keyword
+Resource  ../Keyword/facebook_login_keyword.robot
+Documentation     A test suite with a single test for valid login.
+*** Test Cases ***
+# Login facebook - success
+1.open browser
+    Open chrom set option
+
+2. open facebook
+    Go To           ${url_facebook}
+    #Capture Page Screenshot  ${filename}2.${TYPE OF FILE}
+
+3. Verify facebook page
+    Verify facebook page           ${title_facebook}
+
+4. Input username/password
+    Input Username and Password    ${input_user}     ${input_pass}       ${username_success}      ${password_success}
+    Capture Page Screenshot  ${filename}4.${TYPE OF FILE}
+
+5. Loing to facebook
+    Click Button Login         ${btn_login}
+    #Capture Page Screenshot  ${filename}5.${TYPE OF FILE}
+
+6. Verify Login Success
+    #Capture Page Screenshot  ${filename}6.${TYPE OF FILE}
+    Verify Login Success     ${txt_message}
+
+7. Capture result
+   Capture Page Screenshot  ${filename}4.${TYPE OF FILE}
+
+8.Sent screenshot via LINE
+    notifyImageFile   ${filename}4.${TYPE OF FILE}
+
+9. log out - Close
+    Close Browser
+

@@ -1,0 +1,69 @@
+
+            >>>>> Generating  Logs  <<<<<  
+        
+              >>>>>  start_suite   Facebook Register Success ( 12 )
+            
+              >>>>>   start_test :    Test Case 1
+            
+              >>>>>   start_test :    1.[Register]- open browser
+            
+              >>>>>   start_test :    2. [Register]- open facebook
+            
+              >>>>>   start_test :    3. Input text
+            
+              >>>>>   start_test :    4. Check option
+            
+              >>>>>   start_test :    5. Input first name
+            
+              >>>>>   start_test :    6. Input sur name
+            
+              >>>>>   start_test :    7. Input password
+            
+              >>>>>   start_test :    8. Input confirm-password
+            
+              >>>>>   start_test :    9. Verify Login Success
+            
+              >>>>>   start_test :    9. Register
+            
+              >>>>>   start_test :    10. Close facebook
+            
+               >>>>>         end_suite Facebook Register Success -  PASS
+            
+               >>>>>         end_suite Scenario -  PASS
+            
+            ==========================================
+        
+            >>>>> Generating  Logs  <<<<<  
+        
+              >>>>>  start_suite   Facebook Register Success ( 12 )
+            
+              >>>>>   start_test :    Test Case 1
+            
+              >>>>>   start_test :    1.[Register]- open browser
+            
+              >>>>>   start_test :    2. [Register]- open facebook
+            
+              >>>>>   start_test :    3. Input text
+            
+              >>>>>   start_test :    4. Check option
+            
+              >>>>>   start_test :    5. Input first name
+            
+              >>>>>   start_test :    6. Input sur name
+            
+              >>>>>   start_test :    7. Input password
+            
+              >>>>>   start_test :    8. Input confirm-password
+            
+              >>>>>   start_test :    9. Verify Login Success
+            
+              >>>>>   start_test :    9. Register
+            
+              >>>>>   start_test :    10. Close facebook
+            
+               >>>>>         end_suite Facebook Register Success -  PASS
+            
+               >>>>>         end_suite Scenario -  PASS
+            
+            ==========================================
+        

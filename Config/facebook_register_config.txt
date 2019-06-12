@@ -1,0 +1,24 @@
+*** Variable ***
+${combo_box_day}             xpath=//select[@id="day"]
+${combo_box_month}           xpath=//select[@id="month"]
+${combo_box_year}            xpath=//select[@id="year"]
+${radio_box_sex}             sex
+${text_box_firstName}        //*[@name="firstname"]
+${text_box_lastName}        //*[@name="lastname"]
+${text_box_email}           //*[@name="reg_email__"]
+${text_box_reEmail}         //*[@name="reg_email_confirmation__"]
+${text_box_password}         //*[@name="reg_passwd__"]
+${register_button}           //*[@name="websubmit"]
+
+${log_filename}                 ./TestLog/L01_
+
+${combo_box_day_value}              22
+${combo_box_month_value}            03
+${combo_box_year_value}             1988
+${radio_box_sex_value}              1
+${text_box_firstName_value}         Test_First_Name
+${text_box_lastName_value}          Test_LastFirst_Name
+${text_box_email_value}             hadsai.g@gmail.com
+${text_box_reEmail_value}           hadsai.g@gmail.com
+${text_box_password_value}          test1234
+

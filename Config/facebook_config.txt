@@ -1,0 +1,54 @@
+*** Variable ***
+${Browser}    chrome
+${options}=    Evaluate  sys.modules['selenium.webdriver.chrome.options'].Options()    sys
+
+${google_doc}       https://docs.google.com/spreadsheets/d/1PwfrGYropY-UuwsneiD2UR5SUKqkNEthWkLVkWbJA_I/edit
+${col_user}             A1
+${col_pwd}              B1
+${TYPE OF FILE}         png
+${filename}             ./Screenshot/T01_
+${value}            data
+${sheet_name}       sheet1
+${sheet_index}      1
+
+${pic_case01}           pic_case01
+${pic_case02}           pic_case02
+
+
+${username_fail}       xxxxx@xxxxx.com
+${password_fail}       12345678
+
+${username_success}    hadsai.g@gmail.com
+${password_success}    test1234
+
+${usernameF}            f
+${password_f}           f
+
+${homepage_f}       https://www.facebook.com/
+${url_facebook}        https://www.facebook.com
+${title_facebook}      Facebook - เข้าสู่ระบบหรือสมัครใช้งาน
+${input_user}          //*[@id="email"]
+${input_pass}          //*[@id="pass"]
+${btn_login}           //*[@class="uiButton uiButtonConfirm"]
+#${txt_not_me}         //*[@id="not_me_link"]
+${txt_not_me}          //*[@class="_4rbf _53ij"]
+
+${txt_message}         //div//textarea[@name="xhpc_message"]
+
+
+${txt_status}          //*[@class="_1mf _1mj"]
+${btn_post}            //*[@class="_1mf7 _4r1q _4jy0 _4jy3 _4jy1 _51sy selected _42ft"]
+${txt_status}          //*div//textarea[@name="xhpc_message"]
+
+${input_search}          //*[@name="q"]
+${link_home_page}        //span[@class="_1vp5"]
+${ele_home_page}         //span[@class="_1vp5 f_click"]
+
+
+${link_noti}            //*[@id="accessible_elem"]
+
+
+
+
+
+
