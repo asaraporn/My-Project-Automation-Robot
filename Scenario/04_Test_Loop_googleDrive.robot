@@ -17,7 +17,9 @@ Retrieve Test Scenario From GoogleSheet
   ${info_para} =  get_data_googleDrive_atSheet2       ${google_doc}       ${3}
   ${cnt} =  Get Length  ${info_para}
     : FOR    ${INDEX}    IN RANGE    1    ${cnt}
-        \  Run Keyword If	    '1' == '1'	 ${info_para}[${INDEX}][${1}]   ${info_para}[${INDEX}][${2}]
+        \  Run Keyword If	    '1' == '1'      ${info_para}[${INDEX}][${1}]   ${info_para}[${INDEX}][${2}]
+
+
 
 *** Keywords ***
 Asaraporn
@@ -30,8 +32,26 @@ Open Browser To Open web
     Maximize Browser Window
     Set Selenium Speed      0.3
 
+Click Target Link
+     [Arguments]        ${arg}
+     log to console     ${arg}
+     Click Element      ${arg}
 
-Close your Browser
-   [Arguments]        ${arg}
+
+Screenshot
+     [Arguments]        ${arg}
+     Capture Page Screenshot        ${arg}.png
+
+
+Verify web page
+     [Arguments]        ${arg}
+     Title Should Be    ${arg}
+
+
+Close your browser
+    [Arguments]        ${arg}
     Close Browser
 
+Verify Equal
+    [Arguments]        ${arg}
+    Should Be Equal    ${arg}
