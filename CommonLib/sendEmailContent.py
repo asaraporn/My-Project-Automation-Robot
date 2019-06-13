@@ -8,8 +8,12 @@ msg = MIMEMultipart()
 msg['Subject'] = 'MAIL TEST'
 msg['From'] = 'asaraporn@addtechhub.com'
 msg['To'] = 'asaraporn@addtechhub.com'
-msg['Cc'] = 'asaraporn@addtechhub.com'
-to_addrs = ['asaraporn@addtechhub.com'] + ['asaraporn@addtechhub.com']
+
+# msg['Cc'] = 'asaraporn@addtechhub.com'
+msg['Cc'] = 'hadsai.y@gmail.com;hadsai.g@gmail.com'
+
+to_addrs = ['asaraporn@addtechhub.com'] + [msg['Cc']]
+
 msg.add_header('Content-Type', 'text/html')
 
 email_content = """

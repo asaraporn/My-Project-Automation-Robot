@@ -1,18 +1,15 @@
-
+import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 # import openpyxl
 # from robot.libraries.BuiltIn import BuiltIn
 
-
-JSON_KEY_FILE_NAME= "Config/FacebookLogin-json.json"
+JSON_KEY_FILE_NAME= "spreadSheetConnector.json"
 GOOGLE_URL = "https://www.googleapis.com/auth/drive"
-
 
 # JSON_KEY_FILE_NAME= BuiltIn().get_variable_value("${SEND_EMAIL}")
 # GOOGLE_URL = BuiltIn().get_variable_value("${GOOGLE_URL}")
-
 
 
 def get_data_gDrive(fileName, targetRange):
