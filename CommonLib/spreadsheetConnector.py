@@ -5,11 +5,14 @@ from oauth2client.service_account import ServiceAccountCredentials
 # import openpyxl
 # from robot.libraries.BuiltIn import BuiltIn
 
-JSON_KEY_FILE_NAME= "spreadSheetConnector.json"
-GOOGLE_URL = "https://www.googleapis.com/auth/drive"
-
 # JSON_KEY_FILE_NAME= BuiltIn().get_variable_value("${SEND_EMAIL}")
 # GOOGLE_URL = BuiltIn().get_variable_value("${GOOGLE_URL}")
+
+curWorkPath = os.getcwd()
+# JSON_KEY_FILE_NAME= "spreadSheetConnector.json"
+JSON_KEY_FILE_NAME = curWorkPath+"\\spreadSheetConnector.json"
+# print(JSON_KEY_FILE_NAME)
+GOOGLE_URL = "https://www.googleapis.com/auth/drive"
 
 
 def get_data_gDrive(fileName, targetRange):
