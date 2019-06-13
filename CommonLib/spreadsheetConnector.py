@@ -6,7 +6,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 # from robot.libraries.BuiltIn import BuiltIn
 
 
-JSON_KEY_FILE_NAME= "../Config/FacebookLogin-json.json"
+JSON_KEY_FILE_NAME= "./Config/FacebookLogin-json.json"
 GOOGLE_URL = "https://www.googleapis.com/auth/drive"
 
 
@@ -58,24 +58,6 @@ def get_data_googleDrive_atSheet(fileName,sheetIndex, col1 ,col2):
     return  dataSheet.acell(col1).value , dataSheet.acell(col2).value
 
 
-
-def get_data_googleDrive_atSheet2(fileName,sheetIndex):
-
-    scope = ['https://spreadsheets.google.com/feeds', GOOGLE_URL]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(JSON_KEY_FILE_NAME, scope)
-    client = gspread.authorize(creds)
-
-    sheet = client.open_by_url(fileName)
-    dataSheet = sheet.get_worksheet(sheetIndex)
-    dataValue = dataSheet.get_all_values()
-
-    return  dataValue
-
-
-
-
-
-
 def set_data_googleDrive_atSheet(fileName,sheetIndex):
     scope = ['https://spreadsheets.google.com/feeds', GOOGLE_URL]
     creds = ServiceAccountCredentials.from_json_keyfile_name(JSON_KEY_FILE_NAME, scope)
@@ -101,12 +83,29 @@ def update_data_googleDrive_atSheet(fileName, sheetIndex , str):
         dataSheet.update_cell(1, 1, str)
 
 
+def get_data_googleDrive_atSheet2(fileName,sheetIndex):
+
+    scope = ['https://spreadsheets.google.com/feeds', GOOGLE_URL]
+    creds = ServiceAccountCredentials.from_json_keyfile_name(JSON_KEY_FILE_NAME, scope)
+    client = gspread.authorize(creds)
+
+    sheet = client.open_by_url(fileName)
+    dataSheet = sheet.get_worksheet(sheetIndex)
+    dataValue = dataSheet.get_all_values()
+
+    return  dataValue
+
+
+
+
+
+
 
 ###TEST
-fileN = 'https://docs.google.com/spreadsheets/d/1PwfrGYropY-UuwsneiD2UR5SUKqkNEthWkLVkWbJA_I/edit'
-a , b = get_data_googleDrive(fileN , 'A1', 'B1')
-print(a)
-print(b)
+# fileN = 'https://docs.google.com/spreadsheets/d/1PwfrGYropY-UuwsneiD2UR5SUKqkNEthWkLVkWbJA_I/edit'
+# a , b = get_data_googleDrive(fileN , 'A1', 'B1')
+# print(a)
+# print(b)
 
 
 # fileN = 'https://docs.google.com/spreadsheets/d/1PwfrGYropY-UuwsneiD2UR5SUKqkNEthWkLVkWbJA_I/edit'
