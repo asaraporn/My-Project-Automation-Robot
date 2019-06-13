@@ -6,7 +6,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 # from robot.libraries.BuiltIn import BuiltIn
 
 
-JSON_KEY_FILE_NAME= "./Config/FacebookLogin-json.json"
+JSON_KEY_FILE_NAME= "Config/FacebookLogin-json.json"
 GOOGLE_URL = "https://www.googleapis.com/auth/drive"
 
 
