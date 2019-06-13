@@ -40,7 +40,12 @@ Click Target Link
 
 Screenshot
      [Arguments]        ${arg}
-     Capture Page Screenshot        ${arg}.png
+     Capture Page Screenshot        ${arg}
+
+
+Send Line Notification
+     [Arguments]        ${arg}
+     notifyImageFile    ${arg}
 
 
 Verify web page
