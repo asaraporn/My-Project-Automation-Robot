@@ -152,6 +152,7 @@ class TestResultLogListener:
 
             """ % (str(test.starttime), str(test))
 
+
             live_logs_file.write(message)
             live_logs_file.close()
 
@@ -222,19 +223,21 @@ class TestResultLogListener:
                                     - datetime.datetime.strptime(self.start_time,'%H:%M:%S'))
 
 
+
         # TODO : LINE
-        send_summary_content(self.total_tests, self.passed_tests, self.failed_tests, self.date_now
-                        ,self.end_time , self.total_time )
+        # send_summary_content(self.total_tests, self.passed_tests, self.failed_tests, self.date_now
+        #                 ,self.end_time , self.total_time )
 
         # TODO : G-MAIL
         # send_mail_content(self.total_tests, self.passed_tests, self.failed_tests, self.date_now
         #                 , self.end_time, self.total_time)
 
+
         # TODO : G-MAIL(Set Config)
-        send_mail_logsResult(self.total_tests, self.passed_tests, self.failed_tests
-             , self.date_now, self.end_time, self.total_time
-             , self.SMTP , self.COMPANY_NAME , self.SUBJECT
-             ,self.FROM, self.PASSWORD ,self.TO ,self.CC)
+        # send_mail_logsResult(self.total_tests, self.passed_tests, self.failed_tests
+        #      , self.date_now, self.end_time, self.total_time
+        #      , self.SMTP , self.COMPANY_NAME , self.SUBJECT
+        #      ,self.FROM, self.PASSWORD ,self.TO ,self.CC)
 
 
 
@@ -254,10 +257,10 @@ def send_summary_content(total, passed, failed ,exe_date ,end_time ,total_time):
          """ \
                 % ( exe_date, total, passed, failed , end_time ,total_time )
 
-        print("TODO : Line Notify")
-        print(summary_content)
-        # TODO : Line Notify
-        CommonLib.lineNotification.lineNotify(summary_content)
+        # print("TODO : Line Notify")
+        # print(summary_content)
+        # # TODO : Line Notify
+        # CommonLib.lineNotification.lineNotify(summary_content)
 
 
 
@@ -303,8 +306,12 @@ def send_mail_logsResult(total, passed, failed, exe_date, end_time, total_time
     msg['Subject'] = "["+companyName+"]"+subjectMail
     msg['From'] = fromMail
     msg['To'] = toMail
+
     msg['Cc'] = ccMail
     to_addrs = [toMail] + [ccMail]
+    # msg['Cc'] = 'hadsai.y@gmail.com;hadsai.g@gmail.com'
+    # to_addrs = ['asaraporn@addtechhub.com'] + [msg['Cc']]
+
 
     msg.add_header('Content-Type', 'text/html')
 
