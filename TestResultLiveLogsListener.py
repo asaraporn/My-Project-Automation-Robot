@@ -1,7 +1,7 @@
 import os
 import webbrowser
 
-# TODO: Import [lineNotification]
+# TODO: Import [lineNotification]start_test
 import CommonLib.lineNotification
 from robot.libraries.BuiltIn import BuiltIn
 
@@ -12,7 +12,7 @@ class TestResultLiveLogsListener:
 
     def __init__(self):
 
-        live_logs_file = open('ResultLiveLogs.txt', 'w')
+        live_logs_file = open('ResultLiveLogs.html', 'w')
 
         message = """
         <html>
@@ -51,7 +51,7 @@ class TestResultLiveLogsListener:
             <body>
                 <table>
                     <tr>
-                        <th> >>>>> Generating Live Logs - Scroll Down for latest <<<<< </th>
+                        <th> >>>>> Automation Execution Status <<<<< </th>
                     </tr>
                 </table>
                 </br>
@@ -62,7 +62,7 @@ class TestResultLiveLogsListener:
         live_logs_file.close()
 
         current_dir = os.getcwd()
-        filename = current_dir + '/ResultLiveLogs.txt'
+        filename = current_dir + '/ResultLiveLogs.html'
 
         webbrowser.open_new_tab(filename)
 
@@ -70,7 +70,7 @@ class TestResultLiveLogsListener:
         self.test_count = len(attrs['tests'])
 
         if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.txt', 'a+')
+            live_logs_file = open('ResultLiveLogs.html', 'a+')
 
             message = """
                 <table>
@@ -99,7 +99,7 @@ class TestResultLiveLogsListener:
 
     def start_test(self, name, attrs):
         if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.txt', 'a+')
+            live_logs_file = open('ResultLiveLogs.html', 'a+')
 
             message = """
                 <table>
@@ -120,7 +120,7 @@ class TestResultLiveLogsListener:
 
     def end_keyword(self, name, attrs):
         if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.txt', 'a+')
+            live_logs_file = open('ResultLiveLogs.html', 'a+')
 
             message = """
                 <table>
@@ -133,15 +133,20 @@ class TestResultLiveLogsListener:
                         <td>%s</td>
                     </tr>
                 </table>
+            """ % ( str(attrs['kwname']), str(attrs['status']))
+            # live_logs_file.write(message)
+            # live_logs_file.close()
 
-            """ % (str(attrs['kwname']), str(attrs['status']))
+            # TODO :
+            if str(attrs['kwname']).startswith('[KW]') :
+                live_logs_file.write(message)
+                live_logs_file.close()
 
-            live_logs_file.write(message)
-            live_logs_file.close()
+
 
     def end_test(self, name, attrs):
         if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.txt', 'a+')
+            live_logs_file = open('ResultLiveLogs.html', 'a+')
 
             message = """
                 <table>
@@ -162,7 +167,7 @@ class TestResultLiveLogsListener:
 
     def end_suite(self, name, attrs):
         if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.txt', 'a+')
+            live_logs_file = open('ResultLiveLogs.html', 'a+')
             message = """
                 <table>
                     <tr>
@@ -179,7 +184,7 @@ class TestResultLiveLogsListener:
 
     def close(self):
 
-        live_logs_file = open('ResultLiveLogs.txt', 'a+')
+        live_logs_file = open('ResultLiveLogs.html', 'a+')
         message = """
             <table>
                 <tr>
@@ -191,6 +196,6 @@ class TestResultLiveLogsListener:
         live_logs_file.write(message)
         live_logs_file.close()
 
-        #TODO : Send ResultLiveLogs.txt
+        #TODO : Send ResultLiveLogs.html
 
 
