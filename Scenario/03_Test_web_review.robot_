@@ -1,0 +1,41 @@
+*** Settings ***
+Documentation   This is a simple test with Robot Framework
+Library    Selenium2Library
+Library    BuiltIn
+Library    String
+Library    Screenshot
+Library    OperatingSystem
+
+*** Variables ***
+${expect}       AddTechHub
+${url}          https://www.reviewyourliving.com/
+${Browser}      chrome
+${TYPE OF FILE}     png
+${filename}         Screenshot/shot_
+
+${expect}            Powered by AddTechHub
+*** Keywords ***
+MyKeyWord
+   Close Browser
+
+*** Test Cases ***
+1. Open Browser To Open web
+   Open Browser  ${url}  ${Browser}
+   Maximize Browser Window
+   Set Selenium Speed   0.3
+
+
+2. Capture Web Page
+   Capture Page Screenshot  ${filename}2.${TYPE OF FILE}
+
+3. Checking result
+    ${result}  Get Text  //h1[@class="header-logo"]
+#    ${result}  Get source
+    Log To Console  \n result=${result}
+    Should Be Equal  ${result}  ${expect}
+
+4. Log out
+    MyKeyWord
+
+
+

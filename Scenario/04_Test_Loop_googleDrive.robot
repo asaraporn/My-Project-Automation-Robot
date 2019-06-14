@@ -19,7 +19,6 @@ Scenario From GoogleSheet
         \  Run Keyword If	    '1' == '1'      ${info_para}[${INDEX}][${1}]   ${info_para}[${INDEX}][${2}]
 
 
-
 *** Keywords ***
 [KW]MyKeyWord
     [Arguments]        ${arg}
