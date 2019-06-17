@@ -3,8 +3,11 @@ ${Browser}    chrome
 ${options}=    Evaluate  sys.modules['selenium.webdriver.chrome.options'].Options()    sys
 
 ${google_doc}       https://docs.google.com/spreadsheets/d/1PwfrGYropY-UuwsneiD2UR5SUKqkNEthWkLVkWbJA_I/edit
+${kw_Flag}              T
 ${col_user}             A1
 ${col_pwd}              B1
+
+
 ${TYPE OF FILE}         png
 ${filename}             ./Screenshot/T01_
 ${value}            data
@@ -46,6 +49,9 @@ ${ele_home_page}         //span[@class="_1vp5 f_click"]
 
 
 ${link_noti}            //*[@id="accessible_elem"]
+${combo_box_day}        xpath=//select[@id="day"]
+
+
 
 
 
