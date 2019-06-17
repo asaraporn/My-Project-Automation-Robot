@@ -3,7 +3,8 @@
 import os
 import webbrowser
 import datetime
-
+import math
+import time
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -12,10 +13,7 @@ from email.mime.text import MIMEText
 #TODO: Import [lineNotification]
 import  CommonLib.lineNotification
 
-
 from robot.libraries.BuiltIn import BuiltIn
-
-
 
 class EmailListener:
 
@@ -256,8 +254,8 @@ class EmailListener:
         self.total_time = ( datetime.datetime.strptime(self.end_time, '%H:%M:%S')
                                     - datetime.datetime.strptime(self.start_time,'%H:%M:%S'))
 
+
         # TODO : G-MAIL(Set Config)
-        print("G-MAIL(Set Config)")
         send_mail_logsResult(self.total_tests, self.passed_tests, self.failed_tests
              , self.date_now, self.start_time , self.end_time, self.total_time
              , self.total_step_tests, self.passed_step_tests, self.failed_step_tests
@@ -358,7 +356,7 @@ def send_mail_logsResult(total, passed, failed
 				  <tr class="heading" >
 					<td rowspan="2">Executed Date</td>
 					<td colspan="2">Test Result</td>
-					<td colspan="2">Rate</td>
+					<td colspan="2">Rate(%%)</td>
 					<td rowspan="2">Total Test</td>
 					<td rowspan="2">Start Test</td>
 					<td rowspan="2">End Test</td>
@@ -367,17 +365,17 @@ def send_mail_logsResult(total, passed, failed
 				  <tr class="heading" >
 						<td >Pass</td>
 						<td >Fail</td>
+						<td >Pass</td>
 						<td >Fail</td>
-						<td >Exec</td>
 				
 				  </tr>
 				  <tr class="item">
 						<td>%s</td>
 						<td >%s</td>
 						<td >%s</td>
-						<td >%s</td>
-						<td >%s</td>
-						<td >%s</td>
+						<td >%s </td>
+						<td >%s </td>
+						<td >%s </td>
 						<td>%s</td>
 						<td>%s</td>
 						<td>%s</td>
@@ -398,14 +396,16 @@ def send_mail_logsResult(total, passed, failed
             """% (  exe_date
                     , passes_step
                     , failed_step
-                    , passes_step
-                    , failed_step
+                    , math.ceil(passes_step * 100.0 / total_step)
+                    , math.ceil(failed_step * 100.0 / total_step)
                     , total_step
                     , start_time
                     , exe_time
                     , total_time)
 
-        print(email_content)
+        print("Summary >>>> \n" + email_content)
+
+
 
         # msg.attach(MIMEText(email_content, 'html'))
         # server.starttls()
