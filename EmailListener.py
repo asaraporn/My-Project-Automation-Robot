@@ -29,67 +29,26 @@ class EmailListener:
         self.passed_step_tests = 0
         self.failed_step_tests = 0
 
-
         self.PRE_RUNNER = 0
         self.start_time = datetime.datetime.now().time().strftime('%H:%M:%S')
 
-
         live_logs_file = open('ResultLiveLogs.html', 'w')
-
         message = """
-        <html>
-            <head>
-                <title>Live Logs</title>
-                <meta http-equiv="refresh" content="5" >
-                <style>
-                    table {  
-                        color: #333; /* Lighten up font color */
-                        font-family: Consolas, Helvetica, Arial, sans-serif;
-                        table-layout: fixed;
-                        width: 100%;
-                        font-size: 14px;
-                    }
-
-                    td, th { border: 1px solid #CCC; height: 30px; } /* Make cells a bit taller */
-
-                    th {  
-                        font-weight: bold; /* Make sure they're bold */
-                        background: #F3F3F3; /* Light grey background */
-                    }
-
-                    td {  
-                        background: #FAFAFA; /* Lighter grey background */
-                        text-align: center; /* Center our text */
-                        width: 100; 
-                        /* css-3 */
-                        white-space: -o-pre-wrap; 
-                        word-wrap: break-word;
-                        white-space: pre-wrap; 
-                        white-space: -moz-pre-wrap; 
-                        white-space: -pre-wrap;
-                    }
-                </style>
-            </head>
-            <body>
-                <table>
-                    <tr>
-                        <th> >>>>> Automation Execution Status <<<<< </th>
+            <table style="width:70%;padding-left:20px">
+                    <tr class="heading">
+						<td>Executed Time</td>
+						<td >KW Name</td>
+                        <td>KW Status</td>
+						<td>Message</td>
                     </tr>
-                </table>
-                </br>
-        </html>
-        """
-
+               """
         live_logs_file.write(message)
         live_logs_file.close()
 
-        current_dir = os.getcwd()
-        filename = current_dir + '/ResultLiveLogs.html'
 
-        webbrowser.open_new_tab(filename)
+
 
     def start_suite(self, name, attrs):
-
         # TODO :: GET CONFIG FROM FILE (LogConfig))
         self.SMTP = BuiltIn().get_variable_value("${SMTP}")
         self.SUBJECT = BuiltIn().get_variable_value("${SUBJECT}")
@@ -100,78 +59,32 @@ class EmailListener:
         self.COMPANY_NAME = BuiltIn().get_variable_value("${COMPANY_NAME}")
 
 
-
         self.date_now = datetime.datetime.now().strftime("%Y-%m-%d")
         self.start_time = datetime.datetime.now().time().strftime('%H:%M:%S')
-
-
         self.test_count = len(attrs['tests'])
 
-        if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.html', 'a+')
+        self.test_detail_conttent = ""
 
-            message = """
-                <table>
-                    <tr>
-                        <th style="background-color:LIGHTSTEELBLUE">Suite (Tests)</th>
-                        <th style="background-color:LIGHTSTEELBLUE">Test Name</th>
-                        <th style="background-color:LIGHTSTEELBLUE">Test Status</th>
-                        <th style="background-color:LIGHTSTEELBLUE">Message</th>
-                        <th style="background-color:LIGHTSTEELBLUE">KW Name</th>
-                        <th style="background-color:LIGHTSTEELBLUE">KW Status</th>
-                    </tr>
-                    <tr>
-                        <td style="background-color:LAVENDER"><strong>%s (%s)</strong></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
 
-            """ % (str(name), str(self.test_count))
 
-            live_logs_file.write(message)
-            live_logs_file.close()
 
     def start_test(self, name, attrs):
         if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.html', 'a+')
+            print("start_test")
 
-            message = """
-                <table>
-                    <tr>
-                        <td></td>
-                        <td style="background-color:LIGHTBLUE"><strong>%s</strong></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-
-            """ % (str(name))
-
-            live_logs_file.write(message)
-            live_logs_file.close()
 
     def end_keyword(self, name, attrs):
         if self.test_count != 0:
             live_logs_file = open('ResultLiveLogs.html', 'a+')
-
             message = """
-                <table>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align: left;">%s</td>
+                    <tr class="detail" >
+                        <td>%s %s</td>
                         <td>%s</td>
+                        <td>%s</td>
+                        <td></td>
                     </tr>
-                </table>
-            """ % ( str(attrs['kwname']), str(attrs['status']))
+            """ % ( self.date_now, datetime.datetime.now().time().strftime('%H:%M:%S')
+                ,  str(attrs['kwname']), str(attrs['status']))
             # live_logs_file.write(message)
             # live_logs_file.close()
 
@@ -186,29 +99,8 @@ class EmailListener:
                     self.failed_step_tests += 1
 
 
-
-
     def end_test(self, name, attrs):
         if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.html', 'a+')
-
-            message = """
-                <table>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td style="background-color:BEIGE"><strong>%s</strong></td>
-                        <td style="text-align: left;">%s</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-
-            """ % (str(attrs['status']), str(attrs['message']))
-
-            live_logs_file.write(message)
-            live_logs_file.close()
-
             ###### Count test-cse #####
             if self.test_count != 0:
                 self.total_tests += 1
@@ -221,35 +113,16 @@ class EmailListener:
 
     def end_suite(self, name, attrs):
         if self.test_count != 0:
-            live_logs_file = open('ResultLiveLogs.html', 'a+')
+            live_logs_file = open('LiveLogsResult.html', 'a+')
             message = """
-                <table>
-                    <tr>
-                        <td style="background-color:LAVENDERBLUSH"><strong>%s</strong></td>
-                        <td style="background-color:CORNSILK"><strong>%s</strong></td>
-                    </tr>
-                </table>
-                </br>
-
-            """ % (str(name), str(attrs['status']))
-
+                  </table>
+                  </br>
+              """
             live_logs_file.write(message)
             live_logs_file.close()
 
 
     def close(self):
-        live_logs_file = open('ResultLiveLogs.html', 'a+')
-        message = """
-            <table>
-                <tr>
-                    <th>Execution completed! </th>
-                </tr>
-            </table>
-        """
-
-        live_logs_file.write(message)
-        live_logs_file.close()
-
         self.end_time = datetime.datetime.now().time().strftime('%H:%M:%S')
         self.total_time = ( datetime.datetime.strptime(self.end_time, '%H:%M:%S')
                                     - datetime.datetime.strptime(self.start_time,'%H:%M:%S'))
@@ -268,6 +141,10 @@ def send_mail_logsResult(total, passed, failed
                          , total_step, passes_step,failed_step
                          , smtpConfig, companyName, subjectMail
                          , fromMail, passwordMail, toMail, ccMail):
+
+        live_logs_file = open('ResultLiveLogs.html', 'r')
+        testDetailCotent = live_logs_file.read()
+        live_logs_file.close()
 
         # server = smtplib.SMTP(smtpConfig)
         # msg = MIMEMultipart()
@@ -325,6 +202,11 @@ def send_mail_logsResult(total, passed, failed
                 .rf-box table tr.item td {
                     border-bottom: 1px solid #eee;
                 }
+                .rf-box table tr.detail td {
+                    border-bottom: 1px solid #eee;
+					 font-size: 12px;
+					 text-align: left;
+                }
             </style>
         </head>
         <body>
@@ -351,7 +233,7 @@ def send_mail_logsResult(total, passed, failed
 					<a href="LiveLogsResult-Failed.html">DetailReport</a> 
 					for more info
                 </p>
-
+                
             <table style="width:70%%;padding-left:20px">
 				  <tr class="heading" >
 					<td rowspan="2">Executed Date</td>
@@ -381,29 +263,32 @@ def send_mail_logsResult(total, passed, failed
 						<td>%s</td>
 				  </tr>
 				</table>
-                <br>       
-
-                <table>
+				
+            <br> 
+                %s     
+            <table>
                     <tr>
                         <td style="text-align:center;color: #999999; font-size: 11px">
                             <p>Test Report</p>
                         </td>
                     </tr>
-                </table>
+            </table>
             </div>
         </body>
         </html>
-            """% (  exe_date
-                    , passes_step
-                    , failed_step
-                    , math.ceil(passes_step * 100.0 / total_step)
-                    , math.ceil(failed_step * 100.0 / total_step)
-                    , total_step
-                    , start_time
-                    , exe_time
-                    , total_time)
+        """% (    exe_date
+                , passes_step
+                , failed_step
+                , math.ceil(passes_step * 100.0 / total_step)
+                , math.ceil(failed_step * 100.0 / total_step)
+                , total_step
+                , start_time
+                , exe_time
+                , total_time
+                , testDetailCotent)
 
         print("Summary >>>> \n" + email_content)
+
 
 
 
