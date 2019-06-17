@@ -259,14 +259,14 @@ class EmailListener:
         # TODO : G-MAIL(Set Config)
         print("G-MAIL(Set Config)")
         send_mail_logsResult(self.total_tests, self.passed_tests, self.failed_tests
-             , self.date_now, self.end_time, self.total_time
+             , self.date_now, self.start_time , self.end_time, self.total_time
              , self.total_step_tests, self.passed_step_tests, self.failed_step_tests
              , self.SMTP , self.COMPANY_NAME , self.SUBJECT
              ,self.FROM, self.PASSWORD ,self.TO ,self.CC)
 
 
 def send_mail_logsResult(total, passed, failed
-                         , exe_date, exe_time, total_time
+                         , exe_date,start_time ,exe_time, total_time
                          , total_step, passes_step,failed_step
                          , smtpConfig, companyName, subjectMail
                          , fromMail, passwordMail, toMail, ccMail):
@@ -360,6 +360,7 @@ def send_mail_logsResult(total, passed, failed
 					<td colspan="2">Test Result</td>
 					<td colspan="2">Rate</td>
 					<td rowspan="2">Total Test</td>
+					<td rowspan="2">Start Test</td>
 					<td rowspan="2">End Test</td>
 					<td rowspan="2">Duration</td>
 				  </tr>
@@ -377,6 +378,7 @@ def send_mail_logsResult(total, passed, failed
 						<td >%s</td>
 						<td >%s</td>
 						<td >%s</td>
+						<td>%s</td>
 						<td>%s</td>
 						<td>%s</td>
 				  </tr>
@@ -399,6 +401,7 @@ def send_mail_logsResult(total, passed, failed
                     , passes_step
                     , failed_step
                     , total_step
+                    , start_time
                     , exe_time
                     , total_time)
 
