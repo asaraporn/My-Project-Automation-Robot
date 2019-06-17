@@ -34,7 +34,7 @@ class EmailListener:
 
         live_logs_file = open('ResultLiveLogs.html', 'w')
         message = """
-            <table style="width:70%;padding-left:20px">
+            <table style="width:80%;padding-left:20px">
                     <tr class="heading">
 						<td>Executed Time</td>
 						<td >KW Name</td>
@@ -46,11 +46,9 @@ class EmailListener:
         live_logs_file.close()
 
 
-
-
     def start_suite(self, name, attrs):
         # TODO :: GET CONFIG FROM FILE (LogConfig))
-        self.SMTP = BuiltIn().get_variable_value("${SMTP}")
+        self.SMPT = BuiltIn().get_variable_value("${SMPT}")
         self.SUBJECT = BuiltIn().get_variable_value("${SUBJECT}")
         self.FROM = BuiltIn().get_variable_value("${FROM}")
         self.PASSWORD = BuiltIn().get_variable_value("${PASSWORD}")
@@ -64,8 +62,6 @@ class EmailListener:
         self.test_count = len(attrs['tests'])
 
         self.test_detail_conttent = ""
-
-
 
 
     def start_test(self, name, attrs):
@@ -127,35 +123,26 @@ class EmailListener:
         self.total_time = ( datetime.datetime.strptime(self.end_time, '%H:%M:%S')
                                     - datetime.datetime.strptime(self.start_time,'%H:%M:%S'))
 
+        live_logs_file = open('ResultLiveLogs.html', 'r')
+        testCaseStatus = live_logs_file.read()
+        live_logs_file.close()
+
 
         # TODO : G-MAIL(Set Config)
         send_mail_logsResult(self.total_tests, self.passed_tests, self.failed_tests
              , self.date_now, self.start_time , self.end_time, self.total_time
              , self.total_step_tests, self.passed_step_tests, self.failed_step_tests
-             , self.SMTP , self.COMPANY_NAME , self.SUBJECT
-             ,self.FROM, self.PASSWORD ,self.TO ,self.CC)
+             , self.SMPT , self.COMPANY_NAME , self.SUBJECT
+             ,self.FROM, self.PASSWORD ,self.TO ,self.CC , testCaseStatus )
+
+
 
 
 def send_mail_logsResult(total, passed, failed
                          , exe_date,start_time ,exe_time, total_time
                          , total_step, passes_step,failed_step
                          , smtpConfig, companyName, subjectMail
-                         , fromMail, passwordMail, toMail, ccMail):
-
-        live_logs_file = open('ResultLiveLogs.html', 'r')
-        testDetailCotent = live_logs_file.read()
-        live_logs_file.close()
-
-        # server = smtplib.SMTP(smtpConfig)
-        # msg = MIMEMultipart()
-        # msg['Subject'] = subjectMail
-        #
-        # msg['From'] = fromMail
-        # msg['To'] = toMail
-        # msg['Cc'] = ccMail
-        # to_addrs = [toMail] + [ccMail]
-        # msg.add_header('Content-Type', 'text/html')
-
+                         , fromMail, passwordMail, toMail, ccMail , testCaseStatus ):
 
         email_content ="""
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -234,7 +221,7 @@ def send_mail_logsResult(total, passed, failed
 					for more info
                 </p>
                 
-            <table style="width:70%%;padding-left:20px">
+            <table style="width:80%%;padding-left:20px">
 				  <tr class="heading" >
 					<td rowspan="2">Executed Date</td>
 					<td colspan="2">Test Result</td>
@@ -285,19 +272,27 @@ def send_mail_logsResult(total, passed, failed
                 , start_time
                 , exe_time
                 , total_time
-                , testDetailCotent)
+                , testCaseStatus)
+        # print("Summary >>>> \n" + email_content)
+        # TODO : G-mail Notify
+        # print(smtpConfig)
+        server = smtplib.SMTP(smtpConfig)
+        msg = MIMEMultipart()
 
-        print("Summary >>>> \n" + email_content)
+        msg['Subject'] = "[" + companyName + "]" + subjectMail
+        msg['From'] = fromMail
+        msg['To'] = toMail
 
+        msg['Cc'] = ccMail
+        to_addrs = [toMail] + [ccMail]
 
+        msg.add_header('Content-Type', 'text/html')
+        msg.attach(MIMEText(email_content, 'html'))
+        server.starttls()
 
+        server.login(msg['From'], passwordMail)
+        server.sendmail('', to_addrs, msg.as_string())
 
-        # msg.attach(MIMEText(email_content, 'html'))
-        # server.starttls()
-        # server.login(msg['From'], passwordMail)
-        # server.sendmail(fromMail, to_addrs, msg.as_string())
-
-
-
+        print("===END===")
 
 
