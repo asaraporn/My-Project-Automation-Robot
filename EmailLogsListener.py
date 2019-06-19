@@ -50,6 +50,8 @@ class EmailLogsListener:
         live_logs_file.write(message)
         live_logs_file.close()
 
+
+
     def start_suite(self, name, attrs):
         # TODO :: GET CONFIG FROM FILE (LogConfig))
         self.SMPT = BuiltIn().get_variable_value("${SMPT}")
@@ -66,9 +68,25 @@ class EmailLogsListener:
 
         self.test_detail_conttent = ""
 
+        if self.test_count != 0:
+            live_logs_file = open('EmailContentLogs.html', 'a+')
+            message = """ <tr class="detail_suite">
+                                 <td colspan="4">%s</td>
+                          </tr> """ % (str(name))
+
+            live_logs_file.write(message)
+            live_logs_file.close()
+
+
+
+
+
     def start_test(self, name, attrs):
         if self.test_count != 0:
             print("start_test")
+
+
+
 
     def end_keyword(self, name, attrs):
         if self.test_count != 0:
@@ -95,26 +113,25 @@ class EmailLogsListener:
                 else:
                     self.failed_step_tests += 1
 
+
+
     def end_test(self, name, attrs):
+        print("end_test")
+        ###### Count test-cse #####
         if self.test_count != 0:
-            ###### Count test-cse #####
-            if self.test_count != 0:
-                self.total_tests += 1
-            if attrs['status'] == 'PASS':
-                self.passed_tests += 1
-            else:
-                self.failed_tests += 1
+            self.total_tests += 1
+        if attrs['status'] == 'PASS':
+            self.passed_tests += 1
+        else:
+            self.failed_tests += 1
+
+
 
     def end_suite(self, name, attrs):
-        if self.test_count != 0:
-            live_logs_file = open('LiveLogsResult.html', 'a+')
-            message = """
-                   </table>
-                  </div> 
-                </br>
-              """
-            live_logs_file.write(message)
-            live_logs_file.close()
+        print("end_suite")
+
+
+
 
     def close(self):
         self.end_time = datetime.datetime.now().time().strftime('%H:%M:%S')
@@ -133,13 +150,14 @@ class EmailLogsListener:
                              , self.FROM, self.PASSWORD, self.TO, self.CC, testCaseStatus)
 
 
+
+
 def send_mail_logsResult(total, passed, failed
                          , exe_date, start_time, exe_time, total_time
                          , total_step, passes_step, failed_step
                          , smtpConfig, companyName, subjectMail
                          , fromMail, passwordMail, toMail, ccMail, testCaseStatus):
     print("===send_mail_logsResult===")
-
     email_content = """
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
                 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -189,6 +207,12 @@ def send_mail_logsResult(total, passed, failed
                             border-bottom: 1px solid #eee;
                                                  font-size: 12px;
                                                  text-align: left;
+                        }
+                        .rf-box table tr.detail_suite td {
+                           border-bottom: .5px solid #eee;
+                           font-size: 12px;
+                           text-align: left;
+                           font-weight: bold;
                         }
                         .detailTable {
                           display: none;
@@ -299,6 +323,9 @@ def send_mail_logsResult(total, passed, failed
             </table>
         <br/>
             %s
+          
+          
+         </table></div>   
         <table>
                     <tr>
                         <td style="text-align:center;color: #999999; font-size: 11px">
@@ -324,7 +351,7 @@ def send_mail_logsResult(total, passed, failed
     # print("Summary >>>> \n" + email_content)
 
     # TODO : G-mail Notify
-    # print(smtpConfig)
+    print(smtpConfig)
     server = smtplib.SMTP(smtpConfig)
     msg = MIMEMultipart()
 
