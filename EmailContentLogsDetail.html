@@ -1,0 +1,274 @@
+
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                <title>Automation Status</title>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+                 <style>
+                        .rf-box {
+                            max-width: 60%;
+                            margin: auto;
+                            padding: 20px;
+                            border: 1px solid #eee;
+                            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+                            font-size: 16px;
+                            line-height: 28px;
+                            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+                            color: #555;
+                        }
+        
+                        .rf-box table {
+                            width: 100%;
+                            line-height: inherit;
+                            text-align: center;
+                        }
+        
+                        .rf-box table td {
+                            padding: 2px;
+                            vertical-align: center;
+                            width: 50%;
+                            text-align: center;
+                        }
+        
+                        .rf-box table tr.heading td {
+                            background: #eee;
+                            border-bottom: 1px solid #ddd;
+                            font-weight: bold;
+                            text-align: center;
+                        }
+        
+                        .rf-box table tr.item td {
+                            border-bottom: 1px solid #eee;
+                        }
+                        .rf-box table tr.detail td {
+                            border-bottom: 1px solid #eee;
+                                                 font-size: 12px;
+                                                 text-align: left;
+                        }
+                        .hiddenDiv {
+                             display: none;
+                             }
+                        .visibleDiv {
+                             display: block;
+                            }
+                        #panel {
+                          display: none;
+                        }
+                    </style>
+                    
+              <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        
+                <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+        
+                // Draw the chart and set the chart values
+                function drawChart() {
+                  var data = google.visualization.arrayToDataTable([
+                  ['Status', 'Progress'],
+                  ['Passed', 14],
+                  ['Failed', 0]
+                ]);
+        
+                  // Optional; add a title and set the width and height of the chart
+                  var options = {'title':'Execution Status', 'width':250, 'height':170};
+        
+                  // Display the chart inside the <div> element with id="piechart"
+                  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                  chart.draw(data, options);
+                }
+                
+                <!-- Hidden -->
+                function myDetail() {
+                  document.getElementById("panel").style.display = "block";
+                }
+                </script>
+         
+            </head>
+                <body>
+                    <div class="rf-box">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr class="top">
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td></td>
+                                            <td style="text-align:middle">
+                                                           <h1>Addtechhub</h1>
+                                               </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+        
+                        <p style="padding-left:20px">
+                            Hi Team,<br>
+                            Following are the last build execution result. 
+                            Please refer <a href="#" id="reportLink" onclick="myDetail()" > Detail Report </a>
+                            for more info
+                        </p>
+            
+        
+            <table>
+            <tr>
+                <td style="width:80%;">
+                        <table style="width:100%;padding-left:20px">
+                              <tr class="heading" >
+                                    <td rowspan="2">Executed Date</td>
+                                    <td colspan="2">Test Result</td>
+                                    <td colspan="2">Rate(%)</td>
+                                    <td rowspan="2">Total Test</td>
+                                    <td rowspan="2">Start Test</td>
+                                    <td rowspan="2">End Test</td>
+                                    <td rowspan="2">Duration</td>
+                                    <!--<td rowspan="3" style="background-color:WHITE"> <div id="piechart"></div></td> -->
+                              </tr>
+                              <tr class="heading" >
+                                            <td >Pass</td>
+                                            <td >Fail</td>
+                                            <td >Pass</td>
+                                            <td >Fail</td>
+        
+                              </tr>
+                              <tr class="item">
+                                            <td>2019/06/19</td>
+                                            <td >14</td>
+                                            <td >0</td>
+                                            <td >100 </td>
+                                            <td >0</td>
+                                            <td >14</td>
+                                            <td>15:55:09</td>
+                                            <td>15:55:37</td>
+                                            <td>0:00:28</td>
+                              </tr>
+                        </table>
+                    </td>
+                    <td style="width:20%;vertical-align:top;horizontal align:right;">
+                        <div id="piechart"></div>
+                    </td>
+                </tr>
+            </table>
+        <br/>
+                     
+                <div class="panel" id="panel">	
+                    <table style="width:80%%;padding-left:20px">
+                        <tr class="heading">
+                            <td>Executed Time</td>
+                            <td >KW Name</td>
+                            <td>KW Status</td>
+                            <td>Message</td>
+                        </tr>      
+                       
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:16</td>
+                        <td>Open web</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:19</td>
+                        <td>Select List by value</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:23</td>
+                        <td>Select List by index</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:26</td>
+                        <td>Select List by value</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:27</td>
+                        <td>Select Radio Button</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:28</td>
+                        <td>Input Text</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:29</td>
+                        <td>Input Text</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:30</td>
+                        <td>Input Text</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:31</td>
+                        <td>Input Text</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:32</td>
+                        <td>Input Text</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:33</td>
+                        <td>Click Button</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:34</td>
+                        <td>Capture Screenshot</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:35</td>
+                        <td>Save Screenshot</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+                    <tr class="detail" >
+                        <td>2019/06/19 15:55:37</td>
+                        <td>Close web</td>
+                        <td>PASS</td>
+                        <td></td>
+                    </tr>
+            
+        <table>
+                    <tr>
+                        <td style="text-align:center;color: #999999; font-size: 11px">
+                            <p>Test Report</p>
+                        </td>
+                    </tr>
+           </table>
+        </body>
+        </html>
+        
