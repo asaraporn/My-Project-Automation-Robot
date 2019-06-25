@@ -57,7 +57,7 @@ class EmailListener:
         self.COMPANY_NAME = BuiltIn().get_variable_value("${COMPANY_NAME}")
 
 
-        self.date_now = datetime.datetime.now().strftime("%Y-%m-%d")
+        self.date_now = datetime.datetime.now().strftime("%Y/%m/%d")
         self.start_time = datetime.datetime.now().time().strftime('%H:%M:%S')
         self.test_count = len(attrs['tests'])
 
@@ -80,7 +80,7 @@ class EmailListener:
                         <td></td>
                     </tr>
             """ % ( self.date_now, datetime.datetime.now().time().strftime('%H:%M:%S')
-                ,  str(attrs['kwname']), str(attrs['status']))
+                ,  str(attrs['kwname']).replace("[KW]",""), str(attrs['status']))
             # live_logs_file.write(message)
             # live_logs_file.close()
 
@@ -294,5 +294,6 @@ def send_mail_logsResult(total, passed, failed
         server.sendmail('', to_addrs, msg.as_string())
 
         print("===END===")
+        # print(email_content)
 
 

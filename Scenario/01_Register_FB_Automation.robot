@@ -15,11 +15,11 @@ Documentation       A test suite with a single test for valid login.
 *** Test Cases ***
 Scenario From GoogleSheet
   ${row}    Set Variable    row
-  ${info_para} =  get_data_googleDrive_atSheet2       ${google_doc}       ${0}
+  ${info_para} =  getGoogleSheetBySheetIndex       ${google_doc}       ${0}
   ${cnt} =  Get Length  ${info_para}
 
     : FOR    ${INDEX}    IN RANGE    1    ${cnt}
 #       \  log to console   \nRemark=${kw_Flag},${info_para}[${INDEX}][${3}]
 #       \  Run Keyword If	 '${kw_Flag}'=='${info_para}[${INDEX}][${3}]'     ${info_para}[${INDEX}][${4}]   ${info_para}[${INDEX}][${2}]
-        \  Run Keyword If	 '${kw_Flag}'=='${info_para}[${INDEX}][${3}]'     Run Keyword And Ignore Error     ${info_para}[${INDEX}][${4}]   ${info_para}[${INDEX}][${2}]   ELSE   log to console     [F:exception-case]
+        \  Run Keyword If	 '${kw_Flag}'=='${info_para}[${INDEX}][${3}]'     Run Keyword And Ignore Error     ${info_para}[${INDEX}][${4}]   ${info_para}[${INDEX}][${2}]   ELSE   log     [F:exception-case]
 

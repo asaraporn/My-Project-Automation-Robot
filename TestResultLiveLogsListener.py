@@ -249,6 +249,9 @@ class TestResultLiveLogsListener:
         self.total_time = ( datetime.datetime.strptime(self.end_time, '%H:%M:%S')
                                     - datetime.datetime.strptime(self.start_time,'%H:%M:%S'))
 
+
+
+
         # TODO : LINE
         send_summary_content(self.total_tests, self.passed_tests, self.failed_tests, self.date_now
                         ,self.end_time , self.total_time )
@@ -280,7 +283,9 @@ def send_summary_content(total, passed, failed, exe_date, end_time, total_time):
     # print("TODO : Line Notify")
     print(summary_content)
     # # TODO : Line Notify
-    # CommonLib.lineNotification.lineNotify(summary_content)
+    CommonLib.lineNotification.lineNotify(summary_content)
+
+
 
 
 def send_mail_logsResult(total, passed, failed, exe_date, end_time, total_time

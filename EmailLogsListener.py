@@ -78,13 +78,14 @@ class EmailLogsListener:
             live_logs_file.close()
 
 
-
-
-
     def start_test(self, name, attrs):
         if self.test_count != 0:
             print("start_test")
 
+
+    def log_message(self, message):
+        if str(message['level']) != "INFO":
+                print("log_message >>>>>>>>>>>>>>>>> "+ str(message['message']))
 
 
 
@@ -100,8 +101,6 @@ class EmailLogsListener:
                     </tr>
             """ % (self.date_now, datetime.datetime.now().time().strftime('%H:%M:%S')
                                          , str(attrs['kwname']).replace("[KW]", ""), str(attrs['status']))
-            # live_logs_file.write(message)
-            # live_logs_file.close()
 
             # TODO : Write Log (Keyword)
             if str(attrs['kwname']).startswith('[KW]'):
@@ -348,45 +347,45 @@ def send_mail_logsResult(total, passed, failed
                , total_time
                , testCaseStatus)
 
-    # print("Summary >>>> \n" + email_content)
+    print("Summary >>>> \n" + email_content)
 
-    # TODO : G-mail Notify
-    print(smtpConfig)
-    server = smtplib.SMTP(smtpConfig)
-    msg = MIMEMultipart()
-
-    msg['Subject'] = "[" + companyName + "]" + subjectMail
-    msg['From'] = fromMail
-    msg['To'] = toMail
-
-    msg['Cc'] = ccMail
-    to_addrs = [toMail] + [ccMail]
-
-    # write file
-    live_logs_file = open('EmailContentLogsDetail.html', 'w')
-    message = email_content
-    live_logs_file.write(message)
-    live_logs_file.close()
-
-    # Setup the attachment
-    filename = os.path.basename('EmailContentLogsDetail.html')
-    attachment = open('EmailContentLogsDetail.html', "rb")
-    part = MIMEBase('application', 'octet-stream')
-    part.set_payload(attachment.read())
-    encoders.encode_base64(part)
-    part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
-    # Attach the attachment to the MIMEMultipart object
-    msg.attach(part)
-    # print("===attachment file===")
-
-    # email content
-    msg.add_header('Content-Type', 'text/html')
-    msg.attach(MIMEText(email_content, 'html'))
-    server.starttls()
-
-    # send mail
-    server.login(msg['From'], passwordMail)
-    server.sendmail('', to_addrs, msg.as_string())
-
-    print("===END===")
+    # # TODO : G-mail Notify
+    # print(smtpConfig)
+    # server = smtplib.SMTP(smtpConfig)
+    # msg = MIMEMultipart()
+    #
+    # msg['Subject'] = "[" + companyName + "]" + subjectMail
+    # msg['From'] = fromMail
+    # msg['To'] = toMail
+    #
+    # msg['Cc'] = ccMail
+    # to_addrs = [toMail] + [ccMail]
+    #
+    # # write file
+    # live_logs_file = open('EmailContentLogsDetail.html', 'w')
+    # message = email_content
+    # live_logs_file.write(message)
+    # live_logs_file.close()
+    #
+    # # Setup the attachment
+    # filename = os.path.basename('EmailContentLogsDetail.html')
+    # attachment = open('EmailContentLogsDetail.html', "rb")
+    # part = MIMEBase('application', 'octet-stream')
+    # part.set_payload(attachment.read())
+    # encoders.encode_base64(part)
+    # part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+    # # Attach the attachment to the MIMEMultipart object
+    # msg.attach(part)
+    # # print("===attachment file===")
+    #
+    # # email content
+    # msg.add_header('Content-Type', 'text/html')
+    # msg.attach(MIMEText(email_content, 'html'))
+    # server.starttls()
+    #
+    # # send mail
+    # server.login(msg['From'], passwordMail)
+    # server.sendmail('', to_addrs, msg.as_string())
+    #
+    # print("===END===")
 
