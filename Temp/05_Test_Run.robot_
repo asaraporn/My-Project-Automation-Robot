@@ -1,0 +1,29 @@
+*** Variables ***
+@{LIST} =    foo    baz
+${case}     1
+
+
+*** Test Cases ***
+Set Suite Variable	${suiteName}	HADSAI_SUITE
+
+${suiteName}
+    ${index} =    Find Index    baz    @{LIST}
+    Should Be Equal    ${index}    ${1}
+    ${index} =    Find Index    non existing    @{LIST}
+    Should Be Equal    ${index}    ${-1}
+
+
+
+*** Keywords ***
+Find Index
+   [Arguments]    ${element}    @{items}
+   ${index} =    Set Variable    ${0}
+   :FOR    ${item}    IN    @{items}
+   \    ${suiteName}
+   \    Run Keyword If    '${item}' == '${element}'    Return From Keyword    ${index}
+   \    ${index} =    Set Variable    ${index + 1}
+   Return From Keyword    ${-1}    # Also [Return] would work here.
+
+
+HADSAI_SUITE
+    log to console  Hello world!!!!
