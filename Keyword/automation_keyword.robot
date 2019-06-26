@@ -5,6 +5,9 @@ passing parameters
      ${result} =     split string        ${arg}      ,
      [Return]    ${result}
 
+
+##############################################################
+
 [KW]MyKeyWord
     [Arguments]        ${arg}
     log to console     ${arg}
@@ -15,14 +18,29 @@ passing parameters
     Maximize Browser Window
     Set Selenium Speed      0.3
 
-[KW]Click Target Link
-     [Arguments]        ${arg}
-     log to console     ${arg}
-     Click Element      ${arg}
+[KW]Click Element
+     [Arguments]     ${arg}
+     Click Element   ${arg}
+
+
+[KW]Click Button
+     [Arguments]     ${arg}
+     ${result}   passing parameters      ${arg}
+#     log to console    \nField=${result}[${0}]
+     Click Element     ${result}[${0}]
+
 
 [KW]Capture Screenshot
      [Arguments]        ${arg}
      Capture Page Screenshot        ${arg}
+
+[KW]Save Screenshot
+     [Arguments]        ${arg}
+    ${d}=   get time
+    ${d}= 	Convert Date 	${d} 	     result_format=%Y%m%d%H%S
+#    log to console    \nTarget=${d}
+    Capture Page Screenshot        ${arg}/${d}.png
+
 
 [KW]Send Image via Line
      [Arguments]        ${arg}
@@ -72,13 +90,24 @@ passing parameters
 #     log to console      \nValue=${result}[${1}]
      Input Text     ${result}[${0}]       ${result}[${1}]
 
-[KW]Click Button
+
+[KW]View Page Source
+    [Arguments]     ${arg}
+    [Return]        Get Source      ${arg}
+
+
+
+[KW]Upload File To Google Drive
+    [Arguments]     ${arg}
+    uploadToGoogleDrive     ${arg}
+
+
+
+[KW]Select Date Picker
      [Arguments]     ${arg}
      ${result}   passing parameters      ${arg}
-#     log to console    \nField=${result}[${0}]
-     Click Element     ${result}[${0}]
-
-
+     Click Element      ${result}[${0}]
+     Input Text     ${result}[${0}]       ${result}[${1}]
 
 
 
