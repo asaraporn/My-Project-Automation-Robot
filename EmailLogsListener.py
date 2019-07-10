@@ -23,6 +23,7 @@ from robot.libraries.BuiltIn import BuiltIn
 class EmailLogsListener:
     ROBOT_LISTENER_API_VERSION = 2
 
+
     def __init__(self):
 
         self.total_tests = 0
@@ -35,6 +36,7 @@ class EmailLogsListener:
 
         self.PRE_RUNNER = 0
         self.start_time = datetime.datetime.now().time().strftime('%H:%M:%S')
+        self.log_failed = ""
 
         live_logs_file = open('EmailContentLogs.html', 'w')
         message = """         
@@ -50,8 +52,6 @@ class EmailLogsListener:
         live_logs_file.write(message)
         live_logs_file.close()
 
-
-
     def start_suite(self, name, attrs):
         # TODO :: GET CONFIG FROM FILE (LogConfig))
         self.SMPT = BuiltIn().get_variable_value("${SMPT}")
@@ -66,8 +66,6 @@ class EmailLogsListener:
         self.start_time = datetime.datetime.now().time().strftime('%H:%M:%S')
         self.test_count = len(attrs['tests'])
 
-        self.test_detail_conttent = ""
-
         if self.test_count != 0:
             live_logs_file = open('EmailContentLogs.html', 'a+')
             message = """ <tr class="detail_suite">
@@ -77,15 +75,14 @@ class EmailLogsListener:
             live_logs_file.write(message)
             live_logs_file.close()
 
-
     def start_test(self, name, attrs):
         if self.test_count != 0:
             print("start_test")
 
+    # def log_message(self, message):
+    #     if str(message['level']) == "FAIL":
+    #         self.log_failed = str(self.log_failed).join(str(message['message']))
 
-    def log_message(self, message):
-        if str(message['level']) != "INFO":
-                print("log_message >>>>>>>>>>>>>>>>> "+ str(message['message']))
 
 
 
@@ -100,7 +97,9 @@ class EmailLogsListener:
                         <td></td>
                     </tr>
             """ % (self.date_now, datetime.datetime.now().time().strftime('%H:%M:%S')
-                                         , str(attrs['kwname']).replace("[KW]", ""), str(attrs['status']))
+                                         , str(attrs['kwname']).replace("[KW]", "")
+                                         , str(attrs['status'])
+                   )
 
             # TODO : Write Log (Keyword)
             if str(attrs['kwname']).startswith('[KW]'):
@@ -112,8 +111,6 @@ class EmailLogsListener:
                 else:
                     self.failed_step_tests += 1
 
-
-
     def end_test(self, name, attrs):
         print("end_test")
         ###### Count test-cse #####
@@ -124,15 +121,20 @@ class EmailLogsListener:
         else:
             self.failed_tests += 1
 
-
-
     def end_suite(self, name, attrs):
-        print("end_suite")
-
-
+        print("end_suite==>" + str(attrs['message']))
+        # if self.test_count != 0:
+        #     live_logs_file = open('EmailContentLogs.html', 'a+')
+        #     message = """ <tr class="detail_suite">
+        #                          <td colspan="4">%s</td>
+        #                   </tr> """ % str((attrs['message']))
+        #
+        #     live_logs_file.write(message)
+        #     live_logs_file.close()
 
 
     def close(self):
+        # print("FAILED ::" + self.log_failed)
         self.end_time = datetime.datetime.now().time().strftime('%H:%M:%S')
         self.total_time = (datetime.datetime.strptime(self.end_time, '%H:%M:%S')
                            - datetime.datetime.strptime(self.start_time, '%H:%M:%S'))
@@ -147,8 +149,6 @@ class EmailLogsListener:
                              , self.total_step_tests, self.passed_step_tests, self.failed_step_tests
                              , self.SMPT, self.COMPANY_NAME, self.SUBJECT
                              , self.FROM, self.PASSWORD, self.TO, self.CC, testCaseStatus)
-
-
 
 
 def send_mail_logsResult(total, passed, failed
@@ -178,27 +178,27 @@ def send_mail_logsResult(total, passed, failed
                             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
                             color: #555;
                         }
-        
+
                         .rf-box table {
                             width: 100%%;
                             line-height: inherit;
                             text-align: center;
                         }
-        
+
                         .rf-box table td {
                             padding: 2px;
                             vertical-align: center;
                             width: 50%%;
                             text-align: center;
                         }
-        
+
                         .rf-box table tr.heading td {
                             background: #eee;
                             border-bottom: 1px solid #ddd;
                             font-weight: bold;
                             text-align: center;
                         }
-        
+
                         .rf-box table tr.item td {
                             border-bottom: 1px solid #eee;
                         }
@@ -217,14 +217,14 @@ def send_mail_logsResult(total, passed, failed
                           display: none;
                         }
                     </style>
-                    
+
               <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        
+
                 <script type="text/javascript">
                 // Load google charts
                 google.charts.load('current', {'packages':['corechart']});
                 google.charts.setOnLoadCallback(drawChart);
-        
+
                 // Draw the chart and set the chart values
                 function drawChart() {
                   var data = google.visualization.arrayToDataTable([
@@ -232,15 +232,15 @@ def send_mail_logsResult(total, passed, failed
                   ['Passed', %s],
                   ['Failed', %s]
                 ]);
-        
+
                   // Optional; add a title and set the width and height of the chart
                   var options = {'title':'Execution Status', 'width':250, 'height':170};
-        
+
                   // Display the chart inside the <div> element with id="piechart"
                   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                   chart.draw(data, options);
                 }
-                
+
                 <!-- Hidden -->
 				function myDetail() {
 					  var x = document.getElementById("detailTable");
@@ -254,7 +254,7 @@ def send_mail_logsResult(total, passed, failed
 					  }
 					}
                 </script>
-         
+
             </head>
                 <body>
                     <div class="rf-box">
@@ -272,15 +272,15 @@ def send_mail_logsResult(total, passed, failed
                                 </td>
                             </tr>
                         </table>
-        
+
                         <p style="padding-left:20px">
                             Hi Team,<br>
                             Following are the last build execution result. 
                             Please refer <a href="#" id="reportLink" onclick="myDetail()" > attachment file </a>
                             for more info
                         </p>
-            
-        
+
+
             <table>
             <tr>
                 <td style="width:80%%;">
@@ -300,7 +300,7 @@ def send_mail_logsResult(total, passed, failed
                                             <td >Fail</td>
                                             <td >Pass</td>
                                             <td >Fail</td>
-        
+
                               </tr>
                               <tr class="item">
                                             <td>%s</td>
@@ -322,8 +322,8 @@ def send_mail_logsResult(total, passed, failed
             </table>
         <br/>
             %s
-          
-          
+
+
          </table></div>   
         <table>
                     <tr>
@@ -334,58 +334,58 @@ def send_mail_logsResult(total, passed, failed
            </table>
         </body>
         </html>
-        """ % ( passes_step
-               , failed_step
-               ,exe_date
-               , passes_step
-               , failed_step
-               , math.ceil(passes_step * 100.0 / total_step)
-               , math.ceil(failed_step * 100.0 / total_step)
-               , total_step
-               , start_time
-               , exe_time
-               , total_time
-               , testCaseStatus)
+        """ % (passes_step
+                                   , failed_step
+                                   , exe_date
+                                   , passes_step
+                                   , failed_step
+                                   , math.ceil(passes_step * 100.0 / total_step)
+                                   , math.ceil(failed_step * 100.0 / total_step)
+                                   , total_step
+                                   , start_time
+                                   , exe_time
+                                   , total_time
+                                   , testCaseStatus)
 
-    print("Summary >>>> \n" + email_content)
+    # print("Summary >>>> \n" + email_content)
 
-    # # TODO : G-mail Notify
+    # TODO : G-mail Notify
     # print(smtpConfig)
-    # server = smtplib.SMTP(smtpConfig)
-    # msg = MIMEMultipart()
-    #
-    # msg['Subject'] = "[" + companyName + "]" + subjectMail
-    # msg['From'] = fromMail
-    # msg['To'] = toMail
-    #
-    # msg['Cc'] = ccMail
-    # to_addrs = [toMail] + [ccMail]
-    #
-    # # write file
-    # live_logs_file = open('EmailContentLogsDetail.html', 'w')
-    # message = email_content
-    # live_logs_file.write(message)
-    # live_logs_file.close()
-    #
-    # # Setup the attachment
-    # filename = os.path.basename('EmailContentLogsDetail.html')
-    # attachment = open('EmailContentLogsDetail.html', "rb")
-    # part = MIMEBase('application', 'octet-stream')
-    # part.set_payload(attachment.read())
-    # encoders.encode_base64(part)
-    # part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
-    # # Attach the attachment to the MIMEMultipart object
-    # msg.attach(part)
-    # # print("===attachment file===")
-    #
-    # # email content
-    # msg.add_header('Content-Type', 'text/html')
-    # msg.attach(MIMEText(email_content, 'html'))
-    # server.starttls()
-    #
-    # # send mail
-    # server.login(msg['From'], passwordMail)
-    # server.sendmail('', to_addrs, msg.as_string())
-    #
-    # print("===END===")
+    server = smtplib.SMTP(smtpConfig)
+    msg = MIMEMultipart()
+
+    msg['Subject'] = "[" + companyName + "]" + subjectMail
+    msg['From'] = fromMail
+    msg['To'] = toMail
+
+    msg['Cc'] = ccMail
+    to_addrs = [toMail] + [ccMail]
+
+    # write file
+    live_logs_file = open('EmailContentLogsDetail.html', 'w')
+    message = email_content
+    live_logs_file.write(message)
+    live_logs_file.close()
+
+    # Setup the attachment
+    filename = os.path.basename('EmailContentLogsDetail.html')
+    attachment = open('EmailContentLogsDetail.html', "rb")
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload(attachment.read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+    # Attach the attachment to the MIMEMultipart object
+    msg.attach(part)
+    # print("===attachment file===")
+
+    # email content
+    msg.add_header('Content-Type', 'text/html')
+    msg.attach(MIMEText(email_content, 'html'))
+    server.starttls()
+
+    # send mail
+    server.login(msg['From'], passwordMail)
+    server.sendmail('', to_addrs, msg.as_string())
+
+    print("===END===")
 
