@@ -2,7 +2,7 @@
 Library    Selenium2Library
 
 *** Variables ***
-${BROWSER}    chrome
+${BROWSER}    firefox
 
 *** Keywords ***
 
