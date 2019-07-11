@@ -83,9 +83,9 @@ def uplaod2GoogleDrive(fileName):
 
 
 
-# TESTING
-fileName = 'UploadFile.txt'
-uploadToGoogleDrive(fileName)
+# # TESTING
+# fileName = 'UploadFile.txt'
+# uploadToGoogleDrive(fileName)
 
 
 

@@ -10,7 +10,7 @@ password = 'Hadsai.1'
 send_to_email = 'hadsai.g@gmail.com'
 subject = 'This is the subject'
 message = 'This is my message'
-file_location = 'C:\\Users\\QA1\\Desktop\\LogsResult\\RobotTestResult.html'
+file_location = 'C:\\Users\\QA1\\Desktop\\LogsResult\\LiveLogs.html'
 
 msg = MIMEMultipart()
 msg['From'] = email

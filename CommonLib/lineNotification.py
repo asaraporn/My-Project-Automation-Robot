@@ -42,8 +42,8 @@ def line_noti_ori():
 
     url = LINE_URL
     data = "### Test Result ###"
-    # message = urllib.urlencode({"message":data})
-    message = urllib.parse.urlencode({"message": data})
+    message = urllib.urlencode({"message":data})
+    #message = urllib.parse.urlencode({"message": data})
 
     headers = {'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + LINE_ACCESS_TOKEN_ME}
     r = requests.post(url, headers=headers, data=message)

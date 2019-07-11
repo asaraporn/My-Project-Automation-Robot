@@ -2,8 +2,8 @@ import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-import pandas as pd
-from gspread_dataframe import get_as_dataframe
+# import pandas as pd
+# from gspread_dataframe import get_as_dataframe
 
 # import openpyxl
 # from robot.libraries.BuiltIn import BuiltIn
