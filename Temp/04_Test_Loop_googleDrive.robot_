@@ -13,10 +13,12 @@ Documentation     A test suite with a single test for valid login.
 *** Test Cases ***
 Scenario From GoogleSheet
   ${row}    Set Variable    row
-  ${info_para} =  get_data_googleDrive_atSheet2       ${google_doc}       ${3}
+  ${info_para} =  get_data_googleDrive_atSheet2       ${google_doc}       ${0}
   ${cnt} =  Get Length  ${info_para}
+
     : FOR    ${INDEX}    IN RANGE    1    ${cnt}
-        \  Run Keyword If	    '1' == '1'      ${info_para}[${INDEX}][${1}]   ${info_para}[${INDEX}][${2}]
+#       \  log to console   \nCol3=${info_para}[${INDEX}][${3}]
+        \  Run Keyword If	    '1' == '1'      ${info_para}[${INDEX}][${4}]   ${info_para}[${INDEX}][${2}]
 
 
 *** Keywords ***
@@ -35,21 +37,17 @@ Scenario From GoogleSheet
      log to console     ${arg}
      Click Element      ${arg}
 
-
 [KW]Screenshot
      [Arguments]        ${arg}
      Capture Page Screenshot        ${arg}
-
 
 [KW]Send Line Notification
      [Arguments]        ${arg}
      notifyImageFile    ${arg}
 
-
 [KW]Verify web page
      [Arguments]        ${arg}
      Title Should Be    ${arg}
-
 
 [KW]Close your browser
     [Arguments]        ${arg}
