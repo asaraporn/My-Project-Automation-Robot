@@ -9,7 +9,7 @@ Library    OperatingSystem
 *** Variables ***
 ${expect}  ROBOT FRAME WORK/
 ${url}  https://www.google.co.th/
-${Browser}  chrome
+${Browser}  headlesschrome
 ${TYPE OF FILE}    png
 ${filename}       C:/Project/Selenium_Project02/testResult/shot01_google
 
