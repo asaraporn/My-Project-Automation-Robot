@@ -1,15 +1,13 @@
 *** Settings ***
-Library      Selenium2Library
-Library      XvfbRobot
+Library    Selenium2Library
 
 *** Variables ***
+${BROWSER}    chrome
+
 
 *** Keywords ***
 
+
 *** Test Cases ***
-Create Headless Browser
-    Open Browser   http://google.com
-    Set Window Size    1920    1080
-    ${title}=    Get Title
-    Should Be Equal    Google    ${title}
-    [Teardown]    Close Browser
+Hello
+    Open Browser    http://www.google.com   browser=${BROWSER}
