@@ -8,6 +8,6 @@ ${BROWSER}    chrome
 *** Keywords ***
 
 
-*** Testcases ***
+*** Test Cases ***
 Hello
     Open Browser    http://www.google.com   browser=${BROWSER}
