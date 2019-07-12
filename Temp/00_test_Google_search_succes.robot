@@ -38,10 +38,8 @@ ${filename}       C:/Project/Selenium_Project02/testResult/shot01_google
 6. Capture result
    Capture Page Screenshot  ${filename}.${TYPE OF FILE}
 
-7. Notify Image
-   notifyImageFile    ${filename}.${TYPE OF FILE}
 
-8. log out
+7. log out
     Close Browser
 
 
