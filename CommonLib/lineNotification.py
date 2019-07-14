@@ -65,7 +65,7 @@ def notifyFile(filename):
 
 
 #TEST!!!!
-# lineNotify('ทดสอบภาษาไทย hello')
+# lineNotify('TEST hello')
 # notifySticker(40,2)
 # notifyPicture("https://cdn-images-1.medium.com/max/1200/1*mONNI1lG9VuiqovpnYqicA.jpeg")
 # notifyImageFile('pic.png')
