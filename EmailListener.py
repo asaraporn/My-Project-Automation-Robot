@@ -11,7 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 #TODO: Import [lineNotification]
-import  CommonLib.lineNotification
+#import  CommonLib.lineNotification
 
 from robot.libraries.BuiltIn import BuiltIn
 

@@ -16,7 +16,7 @@ from email import encoders
 from email.mime.base import MIMEBase
 
 # TODO: Import [lineNotification]
-from CommonLib import lineNotification
+# from CommonLib import lineNotification
 from robot.libraries.BuiltIn import BuiltIn
 
 
