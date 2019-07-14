@@ -119,6 +119,7 @@ def insertImage(fileName,sheetIndex):
 
 
 
+import openpyxl
 def getGoogleSheetBySheetIndex2(fileName,sheetIndex):
 
     JSON_KEY_FILE_NAME = os.getcwd() + "\\spreadSheetConnector.json"
@@ -131,14 +132,15 @@ def getGoogleSheetBySheetIndex2(fileName,sheetIndex):
     dataValue = dataSheet.get_all_values()
 
     #Set Value keyword
-    list_of_lists_keyword = dataSheet.col_values(2)
+    col_index = 2
+    list_of_lists_keyword = dataSheet.col_values(col_index)
     lenCols = len(list_of_lists_keyword)
     for i in range(lenCols):
         keyword = list_of_lists_keyword[i]
         newKeyword = "[KW]"+keyword
-        dataSheet.update_cell( 2, 2 , newKeyword)
-
-
+        #set new keyword
+        print(i,newKeyword)
+        dataSheet.update_cell( 2 , 5 , newKeyword)
 
 
     print(dataSheet.get_all_values())

@@ -32,7 +32,6 @@ def notifySticker(stickerID,stickerPackageID):
     return _lineNotify(payload)
 
 
-# Line BOT Databases with Google sheet เก็บข้อมูลผู้ใช้ Line ด้วย Google sheet
 def getLineMsg():
     print('Hello')
 
@@ -42,7 +41,7 @@ def line_noti_ori():
 
     url = LINE_URL
     data = "### Test Result ###"
-    message = urllib.urlencode({"message":data})
+    message = urllib3.urlencode({"message":data})
     #message = urllib.parse.urlencode({"message": data})
 
     headers = {'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + LINE_ACCESS_TOKEN_ME}
