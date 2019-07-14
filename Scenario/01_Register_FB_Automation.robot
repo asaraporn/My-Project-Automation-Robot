@@ -10,7 +10,7 @@ Library    ../CommonLib/spreadsheetConnector.py
 Resource  ../Config/facebook_config.txt
 Resource  ../Keyword/automation_keyword.robot
 
-Documentation       A test suite with a single test for valid login.
+Documentation      A test suite with a single test for valid login.
 
 *** Test Cases ***
 Scenario From GoogleSheet
