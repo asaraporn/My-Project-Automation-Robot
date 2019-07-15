@@ -16,8 +16,10 @@ passing parameters
     [Arguments]        ${arg}
     ${result}   passing parameters      ${arg}
     Open Browser  ${result}[${0}]    ${result}[${1}]
+    Set Window Size    1920    1080
     Maximize Browser Window
     Set Selenium Speed      0.3
+
 
 [KW]Click Element
      [Arguments]     ${arg}
