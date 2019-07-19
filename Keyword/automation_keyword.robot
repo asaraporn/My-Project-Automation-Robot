@@ -2,7 +2,7 @@
 passing parameters
      [Arguments]     ${arg}
      # split string bt comma
-     ${result} =     split string        ${arg}      ,
+     ${result} =     split string        ${arg}      ${SPACE*4}
      [Return]    ${result}
 
 
@@ -19,6 +19,7 @@ passing parameters
     Set Window Size    1920    1080
     Maximize Browser Window
     Set Selenium Speed      0.3
+
 
 
 [KW]Click Element
@@ -42,8 +43,10 @@ passing parameters
      [Arguments]        ${arg}
     ${d}=   get time
     ${d}= 	Convert Date 	${d} 	     result_format=%Y%m%d%H%S
+    Log to console              \nPicture=${arg}/${d}.png
 	Sleep    3s
     Capture Page Screenshot        ${arg}/${d}.png
+
 
 
 [KW]Send Image via Line
