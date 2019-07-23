@@ -153,3 +153,20 @@ passing parameters
 
 
 
+
+[KW]Checking Link
+    [Arguments]        ${arg}
+    ${result}   passing parameters      ${arg}
+#    log to console      \nLink====${result}[${1}]
+    Open Browser  ${result}[${1}]    ${result}[${2}]
+#    Set Window Size    1920    1080
+    Maximize Browser Window
+#    Set Selenium Speed      0.3
+
+#    ${source}   Get source
+#    Should be equal as strings 	     ${source}       ${BAD_LINK}
+
+    Capture Page Screenshot        ./Screenshot/${result}[${0}].png
+#    Sleep    2s
+    Close Browser
+
